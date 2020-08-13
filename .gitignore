@@ -1,10 +1,3 @@
-# Prevent cookie leak.
-sendTweet.sh
-
-
-
-
-
 # Logs
 logs
 *.log
