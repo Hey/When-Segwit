@@ -7,8 +7,7 @@ const encode = require('nodejs-base64-encode');
 const fetch = require('node-fetch')
 
 // Twitter accounts to watch:
-// var accounts = [{"username:": "LovelyCryptos", "id:" "123"}]
-var accounts = ["LovelyCryptos", "Hallo1831"]
+var accounts = ["Blockchain"]
 
 // Allow reading from .env
 require('dotenv').config();
