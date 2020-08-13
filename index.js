@@ -107,7 +107,7 @@ async function getTweets(username) {
 async function replyTo(id) {
 
     const exec = require('child_process').exec;
-    const sendTweet = exec(`sh sendTweet.sh ${id}`);
+    const sendTweet = exec(`sh sendTweet.sh ${id} ${process.env.TWITTER_KEY}`);
     sendTweet.stdout.on('data', (data)=>{
         //console.log(`Tweet sent success: ${data}`); 
     });
