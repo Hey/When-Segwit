@@ -1,0 +1,29 @@
+{
+  "name": "when-segwit",
+  "version": "1.0.0",
+  "description": "https://twitter.com/alistairmilne/status/1293984610611802112",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hey/When-Segwit.git"
+  },
+  "author": "https://github.com/Hey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hey/When-Segwit/issues"
+  },
+  "homepage": "https://github.com/Hey/When-Segwit#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "circular-json": "^0.5.9",
+    "delay": "^4.4.0",
+    "dotenv": "^8.2.0",
+    "file-system": "^2.2.2",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0",
+    "nodejs-base64-encode": "^1.1.0"
+  }
+}
