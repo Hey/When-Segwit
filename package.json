@@ -4,7 +4,8 @@
   "description": "https://twitter.com/alistairmilne/status/1293984610611802112",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,13 @@
     "circular-json": "^0.5.9",
     "delay": "^4.4.0",
     "dotenv": "^8.2.0",
+    "electron": "^9.2.0",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
+    "launch-editor": "^2.2.1",
     "node-fetch": "^2.6.0",
-    "nodejs-base64-encode": "^1.1.0"
+    "nodejs-base64-encode": "^1.1.0",
+    "open": "^7.1.0",
+    "path": "^0.12.7"
   }
 }

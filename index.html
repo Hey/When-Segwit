@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta charset="UTF-8">
+
+  <title>When Segwit?</title>
+
+  <!-- Import all styles -->
+  <link rel="stylesheet" href="assets/tailwind.css">
+  <link rel="stylesheet" href="assets/fonts/index.css">
+  <link rel="stylesheet" href="assets/index.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald|Rubik">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+
+  <!-- Import all scripts -->
+  <script src="https://kit.fontawesome.com/0ce72ceb5e.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.3/dist/alpine.js" defer></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+
+  <script>
+    function autoResize(iframe) {
+      $(iframe).height($(iframe).contents().find('html').height());
+    }
+  </script>
+</head>
+
+
+<body class="font-sans antialiased noselect thebackground">
+
+  <!-- Import script -->
+  <script src="assets/front.js"></script>
+
+  <div class="tweets" id="tweets">
+    <div x-data="{ open: false }" class="relative pt-0 pb-2 md:pb-3 lg:pb-4 xl:pb-5">
+      <nav class="relative flex items-center justify-between max-w-screen-xl px-4 mx-auto sm:px-6">
+        <div class="flex items-center flex-1">
+          <div class="flex items-center justify-between w-full md:w-auto">
+            <a href="#">
+              <h1 class="logo">When Segwit?</h1>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="relative overflow-hidden bg-black" id="home">
+    <div x-data="{ open: false }" class="relative pt-0 pb-2 md:pb-3 lg:pb-4 xl:pb-5">
+      <nav class="relative flex items-center justify-between max-w-screen-xl px-4 mx-auto sm:px-6">
+        <div class="flex items-center flex-1">
+          <div class="flex items-center justify-between w-full md:w-auto">
+            <a href="#">
+              <h1 class="logo">When Segwit?</h1>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+      <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
+        <div class="text-sm font-semibold tracking-wide text-gray-500 uppercase sm:text-base lg:text-sm xl:text-base">
+
+        </div>
+      </div>
+
+      <!-- Accounts edit -->
+      <div class="flex bg-gray-200">
+        <div class="flex-1 text-gray-700 bg-gray-400 px-4 py-2 m-2">
+          <div style="line-height: 10px;">
+            <h1 class="text-white font-semibold">Accounts</h1>
+            <p class="text-white font-semibold">Modify accounts to watch.</p>
+          </div>
+
+          <div class="relative w-full mx-auto">
+            <br>
+            <span class="items-center rounded-md shadow-md">
+              <span class="inline-flex rounded-md shadow-xs">
+                <a id="editAccountsButton"
+                  class="text-white buttoncolor inline-flex items-center px-4 py-2 text-base font-medium leading-6 transition duration-150 ease-in-out border border-transparent rounded-md hover:text-blue-100 focus:outline-none focus:shadow-outline">
+
+                  <i class="fas fa-edit"></i> <svg aria-hidden="true" focusable="true" data-prefix="fab"
+                    class="w-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                  </svg> Edit Accounts
+                </a>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <br><br><br><br><br>
+      <!-- Twitter Authorization edit -->
+      <div class="flex bg-gray-200">
+        <div class="flex-1 text-gray-700 bg-gray-400 px-4 py-2 m-2">
+          <div style="line-height: 10px;">
+            <h1 class="text-white font-semibold">Authorization</h1>
+            <p class="text-white font-semibold">Modify your Twitter account login.</p>
+          </div>
+
+          <div class="relative w-full mx-auto">
+            <br>
+            <span class="items-center rounded-md shadow-md">
+              <span class="inline-flex rounded-md shadow-xs">
+                <a id="editAuthorizationButton"
+                  class="text-white buttoncolor inline-flex items-center px-4 py-2 text-base font-medium leading-6 transition duration-150 ease-in-out border border-transparent rounded-md hover:text-blue-100 focus:outline-none focus:shadow-outline">
+
+                  <i class="fas fa-edit"></i> <svg aria-hidden="true" focusable="true" data-prefix="fab"
+                    class="w-4 mr-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                  </svg> Edit Authorization
+                </a>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>
