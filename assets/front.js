@@ -22,22 +22,46 @@ async function editAuthorization() {
 // Allow reading from .env
 require('dotenv').config();
 
+// File content.
+var accountsContent;
+var envContent;
+
 // Start.
 async function go() {
 
-    // Twitter accounts to watch.
-    // Read accounts.txt & if empty, use @Blockchain as example.
-    let accounts = fs.readFileSync('./accounts.txt').toString().split(/\r\n|\n|\r/)
-    if (accounts < 1) accounts = ["Blockchain"]
+  // Check configuration change,
+  await configCheck()
 
-    // Loop accounts.
-    await asyncForEach(accounts, user => checkAccount(user));
+  // Twitter accounts to watch.
+  // Read accounts.txt & if empty, use @Blockchain as example.
+  let accounts = fs.readFileSync('./accounts.txt').toString().split(/\r\n|\n|\r/)
+  if (accounts < 1) accounts = ["Blockchain"]
 
-    // Over
-    await delay(2500)
-    go()
+  // Loop accounts.
+  await asyncForEach(accounts, user => checkAccount(user));
+
+  // Over
+  await delay(2500)
+  go()
 
 }
+
+// Checks if any file data has changed.
+async function configCheck() {
+
+  // If first try.
+  if (!accountsContent) accountsContent = await fs.readFileSync('./accounts.txt').toString()
+  if (!envContent) envContent = await fs.readFileSync('./.env').toString()
+
+  // Compares results.
+  if ((fs.readFileSync('./accounts.txt').toString() != accountsContent) || (fs.readFileSync('.env').toString() != envContent)) {
+    console.log('Configuration change, reloading.')
+    location.reload();
+  }
+}
+
+// Checks as fast as possible on config changes.
+setTimeout(configCheck, 250);
 
 // Function to check account,
 async function checkAccount(item) {
@@ -79,6 +103,7 @@ async function checkAccount(item) {
       var fileContent = await fs.readFileSync(`database/${item}.txt`).toString()
 
       if (fileContent != result) {
+        //console.log(rawResult.full_text)
         // Disallows replying from own account.
         /*if (rawResult.user.screen_name == item) {
             return console.log(`Ignoring reply to self: @${item}`)*/
@@ -87,14 +112,14 @@ async function checkAccount(item) {
             return console.log(`Ignoring mention Tweet: @${item}`)
         } 
 
-        console.log(`${fileContent} versus ${result}`)
-        replyTo(result)
         console.log('New Tweet, saving it.')
         await fs.writeFileSync(`database/${item}.txt`, result);
 
         console.log(`@${item}'s latest Tweet: '${result}'`);
+
+        await replyTo(result)
       } else {
-        console.log(`Identical Tweet: '${result}' (@${item})`)
+        //console.log(`Identical Tweet: '${result}' (@${item})`)
       }
 
       await delay(1000)
@@ -125,7 +150,8 @@ async function getTweets(username) {
     } catch (error) {
         console.log(`Error occurred when checking Tweets for @${username}, retrying, error: ${error}`)
         await delay(1000)
-        return await getTweets(username)
+        return []
+        //return await getTweets(username)
     }
 }
 
