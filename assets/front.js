@@ -131,21 +131,29 @@ async function getTweets(username) {
 
 // Reply to.
 async function replyTo(id) {
+  
+  // Let know that request is sent.
+  console.log(`Requested reply for Tweet: ${id}`)
 
-    const exec = require('child_process').exec;
-    const sendTweet = exec(`sh sendTweet.sh ${id} ${process.env.TWITTER_KEY} ${process.env.CSRF} ${process.env.AUTH_TOKEN} ${process.env.SESSION}`);
-    sendTweet.stdout.on('data', (data)=>{
-        //console.log(`Tweet sent success: ${data}`); 
-    });
-    sendTweet.stderr.on('data', (data)=>{
-        //console.error(`Tweet sending fail: ${data}`);
-    });
-    console.log('Sent Tweet')
+  // Sends request to our API.
+  var result = await axios({
+    method: 'get',
+    url: `http://localhost:${process.env.PORT}/sendTwitter/${id}`
+  })
 
-    // Sends request.
-    /*var headers = { 'authorization': `Bearer ${process.env.TWITTER_KEY}` }
-    var data = {}
-    var result = (await axios.post('https://api.twitter.com/1.1/statuses/update.json', { headers: headers, data: data })).data*/
+  // Debugging.
+  console.log(result.data)
+
+
+  /*const exec = require('child_process').exec;
+  const sendTweet = exec(`sh sendTweet.sh ${id} ${process.env.TWITTER_KEY} ${process.env.CSRF} ${process.env.AUTH_TOKEN} ${process.env.SESSION}`);
+  sendTweet.stdout.on('data', (data)=>{
+    console.log(`Tweet sent success: ${data}`); 
+  });
+  sendTweet.stderr.on('data', (data)=>{
+    console.error(`Tweet sending fail: ${data}`);
+  });
+  console.log('Sent Tweet')*/
 }
 
 // Function to async read through array.
