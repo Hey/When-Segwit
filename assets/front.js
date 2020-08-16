@@ -217,8 +217,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function log(msg) {
-  addLog(msg)
   console.log(msg)
+  addLog(msg)
 }
 
 function addLog(msg) {
