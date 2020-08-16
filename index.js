@@ -40,6 +40,12 @@ function createWindow () {
 
   // Open the dev tools for testing.
   mainWindow.webContents.openDevTools()
+
+  // Open links in external browser.
+  mainWindow.webContents.on('new-window', function(e, url) {
+    e.preventDefault();
+    require('electron').shell.openExternal(url);
+  });
 }
 
 // This method will be called when Electron has finished
