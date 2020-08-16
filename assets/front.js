@@ -49,6 +49,13 @@ async function go() {
 // Checks if any file data has changed.
 async function configCheck() {
 
+  // Checks if file exists, if not, creates it.
+  var accountsFile = await fs.FileExists('./accounts.txt')
+  var envFile = await fs.FileExists('./.env')
+  if (!accountsFile) await fs.writeFile('./accounts.txt', 'Blockchain')
+  if (!envFile) await fs.writeFile('./.env', 'TWITTER_KEY=0\nCSRF=0\nAUTH_TOKEN=0\nSESSION=0\nPORT=1204')
+
+
   // If first try.
   if (!accountsContent) accountsContent = await fs.readFileSync('./accounts.txt').toString()
   if (!envContent) envContent = await fs.readFileSync('./.env').toString()

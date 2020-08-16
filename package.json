@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "build-linux": "npx electron-builder --linux",
+    "build-win": "npx electron-builder --win"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,6 @@
     "cors": "^2.8.5",
     "delay": "^4.4.0",
     "dotenv": "^8.2.0",
-    "electron": "^9.2.0",
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "fs": "0.0.1-security",
@@ -32,5 +33,16 @@
     "nodejs-base64-encode": "^1.1.0",
     "open": "^7.1.0",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "electron-builder": "^22.8.0",
+    "electron": "^9.2.0"
+  },
+  "build": {
+    "appId": "com.electron.whensegwit",
+    "productName": "When Segwit",
+    "win": {
+      "icon": "assets/logo.ico"
+    }
   }
 }
