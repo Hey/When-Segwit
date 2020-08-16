@@ -29,6 +29,19 @@
       $(iframe).height($(iframe).contents().find('html').height());
     }
   </script>
+
+  <style>
+    form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+    form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    #messages { list-style-type: none; margin: 0; padding: 0; }
+    #messages li { padding: 5px 10px; }
+    #messages li:nth-child(odd) { background: #eee; }
+    #messages { margin-bottom: 40px }
+    #messages { background: #eee; }
+    #logs { border-radius: 25px; }
+    #logs { line-height: 20px; }
+  </style>
 </head>
 
 
@@ -119,6 +132,17 @@
                 </a>
               </span>
             </span>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="flex bg-gray-200">
+        <div class="flex-1 text-gray-700 bg-gray-400 px-4 py-2 m-2">
+          <div style="line-height: 10px;">
+          <h1 class="text-white font-semibold">Logs</h1>
+          <div id="logs">
+            <ul id="messages"></ul>
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ function createWindow () {
 
   // Create the window.
   const mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 400,
     height: 600,
     resizable: false,
     webPreferences: {
@@ -39,7 +39,7 @@ function createWindow () {
   mainWindow.setMenuBarVisibility(false)
 
   // Open the dev tools for testing.
-  mainWindow.webContents.openDevTools()
+  //mainWindow.webContents.openDevTools()
 
   // Open links in external browser.
   mainWindow.webContents.on('new-window', function(e, url) {

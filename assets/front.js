@@ -9,13 +9,13 @@ const open = require('open');
 
 // This allows editing the list of usernames to watch.
 async function editAccounts() {
-    console.log('Opening accounts file.')
+    log('Opening accounts file.')
     open('accounts.txt');
 }
 
 // This allows editing the Twitter authorization.
 async function editAuthorization() {
-    console.log('Opening config file.')
+    log('Opening config file.')
     open('.env');
 }
 
@@ -55,7 +55,7 @@ async function configCheck() {
 
   // Compares results.
   if ((fs.readFileSync('./accounts.txt').toString() != accountsContent) || (fs.readFileSync('.env').toString() != envContent)) {
-    console.log('Configuration change, reloading.')
+    log('Configuration change, reloading.')
     location.reload();
   }
 }
@@ -71,62 +71,62 @@ async function checkAccount(item) {
 
     // Get results & validate & use.
     var rawResult = await getTweets(item)
-    if (!rawResult) return console.log(`No response for @${item}`)
+    if (!rawResult) return log(`No response for @${item}`)
     var result = rawResult.id_str
 
     // Disallows replying from own account.
     /*if (rawResult.user.screen_name == item) {
-        return console.log(`Ignoring reply to self: @${item}`)
+        return log(`Ignoring reply to self: @${item}`)
     // Prevents replying to mentions/tags.
     } else if (result.full_text.startsWith("@")) {
-        return console.log(`Ignoring mention Tweet: @${item}`)
+        return log(`Ignoring mention Tweet: @${item}`)
     } else */ if (result == "error") {
       //await delay(theCooldown)
       //checkAccount(item);
-      return console.log(`Error, failed to get Tweets for @${item}.`)
+      return log(`Error, failed to get Tweets for @${item}.`)
     } else if (result == "not_exist") {
       //await delay(theCooldown)
       //checkAccount(item);
-      return console.log(`@${item} does not exists.`)
+      return log(`@${item} does not exists.`)
     } else if (result == "no_tweets") {
       //await delay(theCooldown)
       //checkAccount(item);
-      return console.log(`@${item} has no tweets.`)
+      return log(`@${item} has no tweets.`)
     } else if (result == "suspended") {
       //await delay(theCooldown)
       //checkAccount(item);
-      return console.log(`@${item} is suspended.`)
-    } else if (!result) return console.log(`No result for @${item}`)
+      return log(`@${item} is suspended.`)
+    } else if (!result) return log(`No result for @${item}`)
 
     if (fs.existsSync(`database/${item}.txt`)) {
 
       var fileContent = await fs.readFileSync(`database/${item}.txt`).toString()
 
       if (fileContent != result) {
-        //console.log(rawResult.full_text)
+        //log(rawResult.full_text)
         // Disallows replying from own account.
         /*if (rawResult.user.screen_name == item) {
-            return console.log(`Ignoring reply to self: @${item}`)*/
+            return log(`Ignoring reply to self: @${item}`)*/
         // Prevents replying to mentions/tags.
         /*} else */if (rawResult.full_text.startsWith("@")) {
-            return console.log(`Ignoring mention Tweet: @${item}`)
+            return log(`Ignoring mention Tweet: @${item}`)
         } 
 
-        console.log('New Tweet, saving it.')
+        log('New Tweet, saving it.')
         await fs.writeFileSync(`database/${item}.txt`, result);
 
-        console.log(`@${item}'s latest Tweet: '${result}'`);
+        log(`@${item}'s latest Tweet: '${result}'`);
 
         await replyTo(result)
       } else {
-        //console.log(`Identical Tweet: '${result}' (@${item})`)
+        //log(`Identical Tweet: '${result}' (@${item})`)
       }
 
       await delay(1000)
       //checkAccount(item)
     } else {
       await fs.writeFileSync(`database/${item}.txt`, '');
-      console.log(`Created database file for ${item}`)
+      log(`Created database file for ${item}`)
 
       //checkAccount(item)
     }
@@ -148,7 +148,7 @@ async function getTweets(username) {
         return data[0]   
     
     } catch (error) {
-        console.log(`Error occurred when checking Tweets for @${username}, retrying, error: ${error}`)
+        log(`Error occurred when checking Tweets for @${username}, retrying, error: ${error}`)
         await delay(1000)
         return []
         //return await getTweets(username)
@@ -159,7 +159,7 @@ async function getTweets(username) {
 async function replyTo(id) {
   
   // Let know that request is sent.
-  console.log(`Requested reply for Tweet: ${id}`)
+  log(`Requested reply for Tweet: ${id}`)
 
   // Sends request to our API.
   var result = await axios({
@@ -168,18 +168,18 @@ async function replyTo(id) {
   })
 
   // Debugging.
-  //console.log(result.data)
+  //log(result.data)
 
 
   /*const exec = require('child_process').exec;
   const sendTweet = exec(`sh sendTweet.sh ${id} ${process.env.TWITTER_KEY} ${process.env.CSRF} ${process.env.AUTH_TOKEN} ${process.env.SESSION}`);
   sendTweet.stdout.on('data', (data)=>{
-    console.log(`Tweet sent success: ${data}`); 
+    log(`Tweet sent success: ${data}`); 
   });
   sendTweet.stderr.on('data', (data)=>{
-    console.error(`Tweet sending fail: ${data}`);
+    error(`Tweet sending fail: ${data}`);
   });
-  console.log('Sent Tweet')*/
+  log('Sent Tweet')*/
 }
 
 // Function to async read through array.
@@ -206,7 +206,7 @@ async function asyncForEach(array, callback) {
 document.addEventListener("DOMContentLoaded", function() {
     
     // Vanity.
-    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome to "When Segwit"!')
+    log('Welcome to When Segwit!')
 
     // Button listeners.
     document.getElementById("editAccountsButton").addEventListener("click", editAccounts);
@@ -215,3 +215,38 @@ document.addEventListener("DOMContentLoaded", function() {
     // Start program.
     go()
 });
+
+function log(msg) {
+  addLog(msg)
+  console.log(msg)
+}
+
+function addLog(msg) {
+  $('#messages').append($('<li>').text(`[${getTime()}] ${msg}`));
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+function getTime() {
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  var d = new Date();
+
+  var day = days[d.getDay()];
+  var hr = d.getHours();
+  var min = d.getMinutes();
+
+  if (min < 10) min = "0" + min;
+
+  var ampm = "am";
+  if( hr > 12 ) {
+      hr -= 12;
+      ampm = "pm";
+  }
+
+  var date = d.getDate();
+  var month = months[d.getMonth()];
+  var year = d.getFullYear();
+
+  return hr + ":" + min + ampm + " " + date + " " + month
+}
