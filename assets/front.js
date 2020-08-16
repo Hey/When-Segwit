@@ -168,7 +168,7 @@ async function replyTo(id) {
   })
 
   // Debugging.
-  console.log(result.data)
+  //console.log(result.data)
 
 
   /*const exec = require('child_process').exec;
