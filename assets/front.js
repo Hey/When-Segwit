@@ -29,6 +29,9 @@ var envContent;
 // Start.
 async function go() {
 
+  // Checks if environment variables are even set.
+  if (process.env.AUTH_TOKEN == "0") return log('Welcome new user, set your keys to start!')
+
   // Check configuration change,
   await configCheck()
 
@@ -50,10 +53,10 @@ async function go() {
 async function configCheck() {
 
   // Checks if file exists, if not, creates it.
-  var accountsFile = await fs.FileExists('./accounts.txt')
-  var envFile = await fs.FileExists('./.env')
+  try { var accountsFile = await fs.readFileSync('./accounts.txt') } catch(e) { var accountsFile = false; }
+  try { var envFile = await fs.readFileSync('./.env') } catch(e) { var envFile = false; }
   if (!accountsFile) await fs.writeFile('./accounts.txt', 'Blockchain')
-  if (!envFile) await fs.writeFile('./.env', 'TWITTER_KEY=0\nCSRF=0\nAUTH_TOKEN=0\nSESSION=0\nPORT=1204')
+  if (!envFile) await fs.writeFile('./.env', 'CSRF=0\nAUTH_TOKEN=0\nSESSION=0\nPORT=1204')
 
 
   // If first try.
@@ -145,7 +148,7 @@ async function getTweets(username) {
 
         // Make the request.
         var url = `https://api.twitter.com/1.1/statuses/user_timeline.json?count=1&include_my_retweet=0&include_rts=0&cards_platform=Web-13&include_entities=1&include_user_entities=1&include_cards=1&send_error_codes=1&tweet_mode=extended&screen_name=${username}`
-        var result = (await axios.get(url, { headers: { Authorization: `Bearer ${process.env.TWITTER_KEY}` } })).data
+        var result = (await axios.get(url, { headers: { Authorization: `Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA` } })).data
         
         // Parse request.
         var data = circularJSON.stringify(result);
